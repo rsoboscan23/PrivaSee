@@ -50,18 +50,24 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans">
-      {step === 'cookie' && <CookieBanner onAccept={handleCookieAccept} />}
-      {step === 'form' && <PersonalDataForm onSubmit={handleFormSubmit} />}
-      {step === 'quiz' && <Quiz onComplete={handleQuizComplete} />}
-      {step === 'results' && (
-        <Results
-          consents={consents}
-          userData={userData}
-          score={score}
-          onRestart={handleRestart}
-        />
-      )}
+    <div className="relative min-h-screen overflow-hidden text-[#eaf0f7]">
+      <div className="pointer-events-none absolute inset-0 grid-noise opacity-60" />
+      <div className="pointer-events-none absolute -left-20 top-16 h-72 w-72 rounded-full bg-[#14d9b3]/10 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-16 h-80 w-80 rounded-full bg-[#1d9eff]/10 blur-3xl" />
+
+      <main className="relative mx-auto flex min-h-screen w-full max-w-6xl items-center px-4 py-10 sm:px-8">
+        {step === 'cookie' && <CookieBanner onAccept={handleCookieAccept} />}
+        {step === 'form' && <PersonalDataForm onSubmit={handleFormSubmit} />}
+        {step === 'quiz' && <Quiz onComplete={handleQuizComplete} />}
+        {step === 'results' && (
+          <Results
+            consents={consents}
+            userData={userData}
+            score={score}
+            onRestart={handleRestart}
+          />
+        )}
+      </main>
     </div>
   )
 }

@@ -44,19 +44,18 @@ export default function PersonalDataForm({ onSubmit }: Props) {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12">
-      <div className="w-full max-w-md">
-        <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold text-gray-900">
+    <div className="mx-auto w-full max-w-lg">
+      <div className="mb-8 text-center">
+          <h1 className="font-display text-3xl font-semibold text-[#eaf0f7]">
             Personalizacija kviza
           </h1>
-          <p className="mt-2 text-sm text-gray-500">
+          <p className="mt-3 text-sm leading-6 text-[#8f9bb0]">
             Da bismo prilagodili kviz vašem profilu, trebamo nekoliko osnovnih
             podataka. Sva polja označena s * su obavezna.
           </p>
         </div>
 
-        <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100">
+      <div className="rounded-3xl border border-[#1b2a38] bg-[#0b1118]/90 p-8 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur">
           <form onSubmit={handleSubmit} noValidate className="space-y-5">
             <Field
               label="Ime i prezime *"
@@ -103,18 +102,17 @@ export default function PersonalDataForm({ onSubmit }: Props) {
 
             <button
               type="submit"
-              className="mt-2 w-full rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="mt-2 w-full rounded-xl bg-[#14d9b3] px-6 py-3 text-sm font-semibold text-[#031914] transition hover:bg-[#26e9c3] focus:outline-none focus:ring-2 focus:ring-[#14d9b3]/70"
             >
               Nastavi na kviz →
             </button>
           </form>
         </div>
 
-        <p className="mt-4 text-center text-xs text-gray-400">
+      <p className="mt-4 text-center text-xs text-[#6f7b8f]">
           Vaši podaci koriste se isključivo za personalizaciju kviza i neće biti
           dijeljeni s trećim stranama.*
         </p>
-      </div>
     </div>
   )
 }
@@ -132,7 +130,7 @@ type FieldProps = {
 function Field({ label, name, type, placeholder, value, error, onChange }: FieldProps) {
   return (
     <div>
-      <label htmlFor={name} className="mb-1 block text-sm font-medium text-gray-700">
+      <label htmlFor={name} className="mb-1.5 block text-sm font-medium text-[#b5c0d1]">
         {label}
       </label>
       <input
@@ -142,11 +140,11 @@ function Field({ label, name, type, placeholder, value, error, onChange }: Field
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className={`w-full rounded-lg border px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-          error ? 'border-red-400 bg-red-50' : 'border-gray-300 bg-white'
+        className={`w-full rounded-xl border px-4 py-2.5 text-sm text-[#eaf0f7] placeholder:text-[#607089] focus:outline-none focus:ring-2 focus:ring-[#14d9b3]/60 ${
+          error ? 'border-red-400/80 bg-red-950/20' : 'border-[#2a3a4e] bg-[#0f1822]'
         }`}
       />
-      {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+      {error && <p className="mt-1 text-xs text-red-300">{error}</p>}
     </div>
   )
 }

@@ -42,39 +42,38 @@ export default function Quiz({ onComplete }: Props) {
   }
 
   function getOptionStyle(index: number): string {
-    const base = 'w-full rounded-lg border-2 px-4 py-3 text-left text-sm transition-colors focus:outline-none'
+    const base = 'w-full rounded-xl border px-4 py-3 text-left text-sm transition focus:outline-none focus:ring-2 focus:ring-[#14d9b3]/50'
     if (!answered) {
       return selectedOption === index
-        ? `${base} border-blue-500 bg-blue-50 text-blue-900`
-        : `${base} border-gray-200 bg-white text-gray-800 hover:border-gray-300 hover:bg-gray-50`
+        ? `${base} border-[#14d9b3] bg-[#07211f] text-[#d9fff6]`
+        : `${base} border-[#26374a] bg-[#0f1822] text-[#c8d2e2] hover:border-[#14d9b3]/40 hover:bg-[#132231]`
     }
     if (index === question.correctIndex) {
-      return `${base} border-green-500 bg-green-50 text-green-900`
+      return `${base} border-[#14d9b3] bg-[#0a2b27] text-[#d4fff4]`
     }
     if (index === selectedOption && selectedOption !== question.correctIndex) {
-      return `${base} border-red-400 bg-red-50 text-red-900`
+      return `${base} border-red-400/80 bg-red-950/30 text-red-200`
     }
-    return `${base} border-gray-200 bg-white text-gray-400`
+    return `${base} border-[#253447] bg-[#0f1822] text-[#6d7b8e]`
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12">
-      <div className="w-full max-w-xl">
+    <div className="mx-auto w-full max-w-2xl">
         <div className="mb-6">
-          <div className="mb-2 flex items-center justify-between text-xs text-gray-500">
+          <div className="mb-2 flex items-center justify-between text-xs text-[#8f9bb0]">
             <span>Pitanje {currentIndex + 1} od {questions.length}</span>
             <span>{Math.round(progress)}% završeno</span>
           </div>
-          <div className="h-2 w-full rounded-full bg-gray-200">
+          <div className="h-2 w-full rounded-full bg-[#1b2937]">
             <div
-              className="h-2 rounded-full bg-blue-500 transition-all duration-300"
+              className="h-2 rounded-full bg-[#14d9b3] transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
         </div>
 
-        <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100">
-          <h2 className="mb-6 text-lg font-semibold text-gray-900">
+      <div className="rounded-3xl border border-[#1b2a38] bg-[#0b1118]/90 p-8 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur">
+          <h2 className="font-display mb-6 text-xl font-semibold text-[#eaf0f7]">
             {question.question}
           </h2>
 
@@ -96,8 +95,8 @@ export default function Quiz({ onComplete }: Props) {
           {answered && (
             <div className={`mt-4 rounded-lg p-3 text-sm ${
               selectedOption === question.correctIndex
-                ? 'bg-green-50 text-green-800'
-                : 'bg-red-50 text-red-800'
+                ? 'border border-[#1e6357] bg-[#0a2b27] text-[#cffff3]'
+                : 'border border-red-400/60 bg-red-950/40 text-red-200'
             }`}>
               {selectedOption === question.correctIndex
                 ? '✓ Točno!'
@@ -108,7 +107,7 @@ export default function Quiz({ onComplete }: Props) {
           <button
             onClick={handleNext}
             disabled={selectedOption === null}
-            className="mt-6 w-full rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-gray-300"
+            className="mt-6 w-full rounded-xl bg-[#14d9b3] px-6 py-3 text-sm font-semibold text-[#031914] transition hover:bg-[#26e9c3] focus:outline-none focus:ring-2 focus:ring-[#14d9b3]/70 disabled:cursor-not-allowed disabled:bg-[#355b56] disabled:text-[#9abdb6]"
           >
             {!answered
               ? 'Potvrdi odgovor'
@@ -117,7 +116,6 @@ export default function Quiz({ onComplete }: Props) {
                 : 'Sljedeće pitanje →'}
           </button>
         </div>
-      </div>
     </div>
   )
 }

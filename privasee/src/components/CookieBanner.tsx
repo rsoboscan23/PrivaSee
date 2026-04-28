@@ -26,19 +26,18 @@ export default function CookieBanner({ onAccept }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center">
-      <div className="w-full max-w-2xl rounded-t-2xl bg-white p-6 shadow-2xl sm:rounded-2xl sm:mx-4">
-        <div className="mb-4 flex items-start gap-3">
-          <span className="text-2xl">🍪</span>
+    <div className="mx-auto w-full max-w-3xl rounded-3xl border border-[#1c2a38] bg-[#0b1118]/95 p-6 shadow-[0_40px_100px_rgba(0,0,0,0.45)] backdrop-blur sm:p-8">
+      <div className="mb-6 flex items-start gap-3">
+          <span className="text-2xl text-[#14d9b3]">●</span>
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="font-display text-xl font-semibold text-[#eaf0f7]">
               Ova web stranica koristi kolačiće
             </h2>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-2 text-sm leading-6 text-[#95a1b4]">
               Koristimo kolačiće kako bismo poboljšali vaše iskustvo, analizirali
               promet i personalizirali sadržaj. Klikom na "Prihvaćam sve"
               pristajete na korištenje svih kolačića opisanih u našoj{' '}
-              <button className="text-blue-600 underline hover:text-blue-800">
+              <button className="text-[#14d9b3] underline decoration-[#14d9b3]/60 underline-offset-4 hover:text-[#6cf2d8]">
                 Politici privatnosti
               </button>
               .
@@ -46,7 +45,7 @@ export default function CookieBanner({ onAccept }: Props) {
           </div>
         </div>
 
-        <div className="mb-5 rounded-lg bg-gray-50 p-4 text-xs text-gray-500 space-y-1">
+        <div className="mb-6 space-y-1 rounded-2xl border border-[#1b2935] bg-[#0f1822] p-4 text-xs text-[#95a1b4]">
           <p>✓ Nužni kolačići — uvijek aktivni</p>
           <p>✓ Analitički kolačići — mjerenje posjeta i ponašanja korisnika</p>
           <p>✓ Marketinški kolačići — personalizirano oglašavanje</p>
@@ -57,22 +56,21 @@ export default function CookieBanner({ onAccept }: Props) {
         <div className="flex flex-col gap-3 sm:flex-row-reverse">
           <button
             onClick={handleAcceptAll}
-            className="w-full rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:w-auto sm:flex-1"
+            className="w-full rounded-xl bg-[#14d9b3] px-6 py-3 text-sm font-semibold text-[#031914] transition hover:bg-[#26e9c3] focus:outline-none focus:ring-2 focus:ring-[#14d9b3]/70 sm:w-auto sm:flex-1"
           >
             Prihvaćam sve
           </button>
           <button
             onClick={handleNecessaryOnly}
-            className="w-full rounded-lg border border-gray-300 px-6 py-3 text-xs font-normal text-gray-400 hover:border-gray-400 hover:text-gray-500 focus:outline-none sm:w-auto"
+            className="w-full rounded-xl border border-[#2a3a4e] px-6 py-3 text-xs font-medium text-[#748098] transition hover:border-[#3b4f67] hover:text-[#97a5bc] focus:outline-none sm:w-auto"
           >
             Samo nužni kolačići
           </button>
         </div>
 
-        <p className="mt-3 text-center text-xs text-gray-400">
+        <p className="mt-4 text-center text-xs text-[#6f7b8f]">
           Možete promijeniti postavke u bilo kojem trenutku u postavkama preglednika.
         </p>
-      </div>
     </div>
   )
 }
