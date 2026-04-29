@@ -137,25 +137,25 @@ export default function CookieBanner({ onAccept }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 z-40 overflow-y-auto bg-transparent p-3 sm:flex sm:items-center sm:justify-center sm:p-6">
-      <div className="my-2 w-full max-w-3xl rounded-2xl border border-[#1e3041] bg-[#0b1118]/98 p-4 text-[#eaf0f7] shadow-[0_40px_100px_rgba(0,0,0,0.55)] sm:my-8 sm:p-8">
+    <div className="fixed inset-0 z-40 overflow-y-auto bg-transparent p-2 sm:flex sm:items-center sm:justify-center sm:p-6">
+      <div className="my-1 w-full max-w-3xl rounded-2xl border border-[#1e3041] bg-[#0b1118]/98 p-3 text-[#eaf0f7] shadow-[0_40px_100px_rgba(0,0,0,0.55)] sm:my-8 sm:p-8">
         <div>
           {view === 'summary' ? (
             <>
-              <div className="mb-5 flex items-center justify-center gap-2 sm:mb-6">  
+              <div className="mb-4 flex items-center justify-center gap-2 sm:mb-6">  
                 <h2 className="font-display text-xl font-semibold tracking-wide text-[#eaf0f7] sm:text-3xl">
                   Upravljanje privatnošću
                 </h2>
               </div>
 
-              <p className="text-sm leading-6 text-[#95a1b4] sm:text-base">
+              <p className="text-xs leading-5 text-[#95a1b4] sm:text-base sm:leading-6">
                 Više o našim Pravilima privatnosti te pravilima o korištenju kolačića možete pročitati{' '}
                 <button className="text-[#14d9b3] underline decoration-[#14d9b3]/70 underline-offset-4 hover:text-[#6cf2d8]">
                   ovdje
                 </button>
               </p>
 
-              <p className="mt-4 text-sm leading-6 text-[#95a1b4] sm:text-base">
+              <p className="mt-3 text-xs leading-5 text-[#95a1b4] sm:mt-4 sm:text-base sm:leading-6">
                 Uz Vaš pristanak, mi i naši partneri koristimo{' '}
                 <button className="text-[#14d9b3] underline decoration-[#14d9b3]/70 underline-offset-4 hover:text-[#6cf2d8]">
                   kolačiće
@@ -171,29 +171,29 @@ export default function CookieBanner({ onAccept }: Props) {
                 .
               </p>
 
-              <p className="mt-6 text-base font-semibold text-[#dfe7f2] sm:text-lg">
+              <p className="mt-4 text-sm font-semibold text-[#dfe7f2] sm:mt-6 sm:text-lg">
                 Mi i naši partneri obrađujemo podatke kako slijedi:
               </p>
-              <p className="mt-2 text-sm leading-6 text-[#95a1b4] sm:text-base">
+              <p className="mt-2 text-xs leading-5 text-[#95a1b4] sm:text-base sm:leading-6">
                 Personalizirano oglašavanje i sadržaj, mjerenje oglašavanja i sadržaja, uvid u publiku i razvoj usluga, Pohrana i/ili pristup podacima na uređaju, Precizni geolokacijski podaci i identifikacija putem skeniranja uređaja
               </p>
 
-              <p className="mt-5 text-center text-sm text-[#14d9b3] sm:text-base">
+              <p className="mt-4 text-center text-xs text-[#14d9b3] sm:mt-5 sm:text-base">
                 <button className="underline decoration-[#14d9b3]/70 underline-offset-4 hover:text-[#6cf2d8]">
                   Pogledajte listu naših 1065 partnera.
                 </button>
               </p>
 
-              <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:justify-center">
+              <div className="mt-5 flex flex-col gap-2.5 sm:mt-8 sm:flex-row sm:justify-center sm:gap-3">
                 <button
                   onClick={openDetails}
-                  className="w-full rounded-xl border border-[#2a3a4e] px-6 py-3.5 text-sm font-semibold text-[#8e9bb1] transition hover:border-[#3d526b] hover:text-[#a7b4c8] sm:w-auto sm:min-w-[240px]"
+                  className="w-full rounded-xl border border-[#2a3a4e] px-5 py-3 text-xs font-semibold text-[#8e9bb1] transition hover:border-[#3d526b] hover:text-[#a7b4c8] sm:w-auto sm:min-w-[240px] sm:px-6 sm:py-3.5 sm:text-sm"
                 >
                   Saznajte više
                 </button>
                 <button
                   onClick={handleAcceptAll}
-                  className="w-full rounded-xl bg-[#14d9b3] px-7 py-3.5 text-sm font-semibold text-[#031914] transition hover:bg-[#26e9c3] sm:w-auto sm:min-w-[240px]"
+                  className="w-full rounded-xl bg-[#14d9b3] px-6 py-3 text-xs font-semibold text-[#031914] transition hover:bg-[#26e9c3] sm:w-auto sm:min-w-[240px] sm:px-7 sm:py-3.5 sm:text-sm"
                 >
                   Prihvati i zatvori
                 </button>
@@ -240,12 +240,6 @@ export default function CookieBanner({ onAccept }: Props) {
               </div>
 
               <div className="mt-4 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:justify-end">
-                <button
-                  onClick={handleNecessaryOnly}
-                  className="w-full rounded-xl border border-[#2a3a4e] px-6 py-3.5 text-sm font-semibold text-[#8e9bb1] transition hover:border-[#3d526b] hover:text-[#a7b4c8] sm:w-auto sm:min-w-[180px]"
-                >
-                  Ne slažem se
-                </button>
                 <button
                   onClick={handleDetailedSave}
                   className="w-full rounded-xl bg-[#14d9b3] px-7 py-3.5 text-sm font-semibold text-[#031914] transition hover:bg-[#26e9c3] sm:w-auto sm:min-w-[180px]"

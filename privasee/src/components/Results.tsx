@@ -5,8 +5,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi,
 } from './ui/carousel'
 
@@ -215,13 +213,9 @@ export default function Results({ consents, userData, score, onRestart }: Props)
             />
           </div>
 
-          <div className="mt-4 flex flex-col gap-2 sm:mt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
-            <CarouselPrevious className="w-full sm:w-auto">← Prethodno</CarouselPrevious>
-            <p className="text-center text-xs font-medium text-[#9eb4cf] sm:text-sm">
-              <span className="inline-block animate-pulse text-[#14d9b3]">⟶</span> Povuci udesno i otkrij što si još podijelio
-            </p>
-            <CarouselNext className="w-full sm:w-auto">Sljedeće →</CarouselNext>
-          </div>
+          <p className="mt-4 text-center text-xs font-medium text-[#9eb4cf] sm:mt-6 sm:text-sm">
+            <span className="inline-block animate-pulse text-[#14d9b3]">⟶</span> Povuci udesno i otkrij što si još podijelio
+          </p>
         </Carousel>
 
         <button
