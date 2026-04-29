@@ -23,17 +23,16 @@ export default function Quiz({ onComplete }: Props) {
   function handleNext() {
     if (selectedOption === null) return
 
-    const isCorrect = selectedOption === question.correctIndex
-    const newScore = isCorrect ? score + 1 : score
-
     if (!answered) {
+      const isCorrect = selectedOption === question.correctIndex
+      const newScore = isCorrect ? score + 1 : score
       setAnswered(true)
       setScore(newScore)
       return
     }
 
     if (isLast) {
-      onComplete(newScore)
+      onComplete(score)
     } else {
       setCurrentIndex(i => i + 1)
       setSelectedOption(null)
