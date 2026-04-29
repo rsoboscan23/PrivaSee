@@ -56,7 +56,14 @@ export default function App() {
       <div className="pointer-events-none absolute -right-24 bottom-16 h-80 w-80 rounded-full bg-[#1d9eff]/10 blur-3xl" />
 
       <main className="relative mx-auto flex min-h-screen w-full max-w-6xl items-center px-4 py-10 sm:px-8">
-        {step === 'cookie' && <CookieBanner onAccept={handleCookieAccept} />}
+        {step === 'cookie' && (
+          <div className="relative w-full">
+            <div className="pointer-events-none opacity-80 blur-[3px]">
+              <PersonalDataForm onSubmit={() => {}} />
+            </div>
+            <CookieBanner onAccept={handleCookieAccept} />
+          </div>
+        )}
         {step === 'form' && <PersonalDataForm onSubmit={handleFormSubmit} />}
         {step === 'quiz' && <Quiz onComplete={handleQuizComplete} />}
         {step === 'results' && (

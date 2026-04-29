@@ -5,7 +5,7 @@ export const questions: QuizQuestion[] = [
     question:
       'Tvoj prijatelj objavi sliku s tvojeg rođendana na Instagramu i tagira te bez pitanja. Imaš li pravo tražiti da je ukloni?',
     options: [
-      'Ne, jer je to njegova slika i može raditi s njom što želi',
+      'To njegova slika i može raditi s njom što želi',
       'Ne, jer si bio/bila na javnom događaju',
       'Da, imaš pravo na brisanje osobnih podataka',
       'Samo ako ti je lice jasno vidljivo',
@@ -19,7 +19,7 @@ export const questions: QuizQuestion[] = [
       'Tvrtka prikuplja tvoju e-mail adresu za dostavu narudžbe. Smiju li je nakon toga koristiti i za slanje reklamnih emailova?',
     options: [
       'Da, jer su već dobili tvoje podatke',
-      'Da, ako je napisano negdje u uvjetima sitnim slovima',
+      'Ako je napisano negdje u uvjetima makar bilo sitnim slovima',
       'Smiju, ali samo jednom',
       'Ne, podaci prikupljeni u jednu svrhu ne smiju se koristiti u drugu bez nove privole',
     ],
@@ -31,7 +31,7 @@ export const questions: QuizQuestion[] = [
     question:
       'Restoran želi postaviti kamere u toaletima u svrhu sprečavanja nezgoda. Je li to dopušteno?',
     options: [
-      'Da, vlasnik može nadzirati vlastite prostorije',
+      'Vlasnik ima pravo nadzirati vlastite prostorije',
       'Da, ako postavi natpis o videonadzoru',
       'Ne, prava ispitanika nadilaze interes vlasnika',
       'Dopušteno samo u radnom vremenu',
