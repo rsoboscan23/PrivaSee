@@ -1,5 +1,13 @@
-import { useState, type TouchEvent } from 'react'
+import { useEffect, useState } from 'react'
 import type { CookieConsents, UserData } from '../types'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from './ui/carousel'
 
 type Props = {
   consents: CookieConsents
@@ -41,21 +49,23 @@ const consentLabels: { key: keyof CookieConsents; label: string }[] = [
 const totalQuestions = 5
 
 export default function Results({ consents, userData, score, onRestart }: Props) {
-  const [activeCard, setActiveCard] = useState(0)
-  const [touchStartX, setTouchStartX] = useState<number | null>(null)
+  const [api, setApi] = useState<CarouselApi>()
+  const [current, setCurrent] = useState(1)
+  const [count, setCount] = useState(0)
   const scorePercent = Math.round((score / totalQuestions) * 100)
 
   const cards = [
     {
       title: 'Rezultat kviza',
       content: (
-        <div className="flex items-center gap-4">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#2e8473] bg-[#0a2b27] text-2xl font-bold text-[#8dffe8]">
+        <div className="mx-auto flex max-w-3xl flex-col items-center gap-5 text-center">
+          <div className="flex h-28 w-28 items-center justify-center rounded-full border-2 border-[#3abfa4] bg-[#0a2b27] text-5xl font-extrabold text-[#8dffe8] shadow-[0_0_40px_rgba(20,217,179,0.25)]">
             {score}/{totalQuestions}
           </div>
           <div>
-            <p className="text-lg font-semibold text-[#eaf0f7]">{scorePercent}% točnih odgovora</p>
-            <p className="text-sm text-[#8f9bb0]">
+            <p className="text-4xl font-extrabold tracking-tight text-[#eaf0f7] sm:text-5xl">{scorePercent}%</p>
+            <p className="mt-1 text-xl font-semibold text-[#d6e5fb]">točnih odgovora</p>
+            <p className="mt-2 text-base text-[#8f9bb0]">
               {score === totalQuestions
                 ? 'Odlično! Dobro poznajete digitalnu privatnost.'
                 : score >= 3
@@ -69,16 +79,21 @@ export default function Results({ consents, userData, score, onRestart }: Props)
     {
       title: 'Što ste prihvatili klikom na cookie banner',
       content: consents.accepted ? (
-        <ul className="space-y-2">
+        <div className="mx-auto max-w-3xl rounded-2xl border border-red-400/50 bg-red-950/20 p-5">
+          <p className="mb-4 text-center text-base font-semibold text-red-200">
+            Kritično: omogućili ste praćenje i dijeljenje podataka.
+          </p>
+          <ul className="space-y-3">
           {consentLabels.map(({ key, label }) => (
-            <li key={key} className="flex items-center gap-2 text-sm text-[#d8e1ef]">
-              <span className="text-[#14d9b3]">✓</span>
+            <li key={key} className="flex items-center justify-center gap-2 text-center text-base text-red-100">
+              <span className="text-red-300">✓</span>
               {label}
             </li>
           ))}
-        </ul>
+          </ul>
+        </div>
       ) : (
-        <p className="text-sm text-[#8f9bb0]">
+        <p className="mx-auto max-w-3xl text-center text-base text-[#8f9bb0]">
           Odabrali ste samo nužne kolačiće. Dobra odluka — ali rijetko tko to odabere.
         </p>
       ),
@@ -87,7 +102,7 @@ export default function Results({ consents, userData, score, onRestart }: Props)
       title: 'Osobni podaci koje ste upisali',
       content: (
         <>
-          <dl className="space-y-2 text-sm">
+          <div className="mx-auto grid w-full max-w-3xl gap-3 sm:grid-cols-2">
             {[
               { label: 'Ime i prezime', value: userData.name || '—' },
               { label: 'Email', value: userData.email || '—' },
@@ -95,13 +110,13 @@ export default function Results({ consents, userData, score, onRestart }: Props)
               { label: 'Grad', value: userData.city || '—' },
               { label: 'Zanimanje', value: userData.occupation || '—' },
             ].map(({ label, value }) => (
-              <div key={label} className="flex justify-between gap-4">
-                <dt className="text-[#8f9bb0]">{label}</dt>
-                <dd className="font-medium text-[#eaf0f7]">{value}</dd>
+              <div key={label} className="rounded-xl border border-[#203245] bg-[#0f1822] p-4 text-left">
+                <p className="text-sm font-medium uppercase tracking-wide text-[#7f91a8]">{label}</p>
+                <p className="mt-2 break-words text-lg font-semibold text-[#eaf0f7]">{value}</p>
               </div>
             ))}
-          </dl>
-          <p className="mt-4 rounded-lg border border-amber-300/30 bg-amber-900/20 p-3 text-xs text-amber-200">
+          </div>
+          <p className="mx-auto mt-5 max-w-3xl rounded-lg border border-red-400/50 bg-red-950/25 p-4 text-center text-sm text-red-200">
             Na pravoj web stranici, ovi podaci mogu biti prodani trećim stranama, korišteni za ciljano
             oglašavanje ili pohranjeni godinama.
           </p>
@@ -111,11 +126,11 @@ export default function Results({ consents, userData, score, onRestart }: Props)
     {
       title: 'Dark paterni koje smo koristili',
       content: (
-        <ul className="space-y-4">
+        <ul className="mx-auto grid w-full max-w-3xl gap-3 sm:grid-cols-2">
           {darkPatterns.map(pattern => (
-            <li key={pattern.name}>
-              <p className="text-sm font-semibold text-[#eaf0f7]">{pattern.name}</p>
-              <p className="mt-0.5 text-sm text-[#8f9bb0]">{pattern.description}</p>
+            <li key={pattern.name} className="rounded-xl border border-[#1f3042] bg-[#0f1822] p-4 text-left">
+              <p className="text-lg font-semibold text-[#eaf0f7]">{pattern.name}</p>
+              <p className="mt-2 text-base leading-7 text-[#8f9bb0]">{pattern.description}</p>
             </li>
           ))}
         </ul>
@@ -124,8 +139,8 @@ export default function Results({ consents, userData, score, onRestart }: Props)
     {
       title: 'Što možete učiniti?',
       content: (
-        <div className="rounded-2xl border border-[#1f6458] bg-[#0a2b27] p-5 text-[#d2fff5]">
-          <ul className="space-y-1 text-sm text-[#a7eede]">
+        <div className="mx-auto max-w-3xl rounded-2xl border border-[#1f6458] bg-[#0a2b27] p-6 text-[#d2fff5]">
+          <ul className="space-y-2 text-center text-base text-[#a7eede]">
             <li>• Uvijek pročitajte što prihvaćate na cookie bannerima</li>
             <li>• Koristite preglednik s ugrađenom blokadom trackera (Firefox, Brave)</li>
             <li>• Redovito brišite kolačiće i pregledavajte postavke privatnosti</li>
@@ -136,30 +151,23 @@ export default function Results({ consents, userData, score, onRestart }: Props)
     },
   ]
 
-  function goNext() {
-    setActiveCard(current => Math.min(current + 1, cards.length - 1))
-  }
-
-  function goPrev() {
-    setActiveCard(current => Math.max(current - 1, 0))
-  }
-
-  function handleTouchStart(event: TouchEvent<HTMLDivElement>) {
-    setTouchStartX(event.touches[0]?.clientX ?? null)
-  }
-
-  function handleTouchEnd(event: TouchEvent<HTMLDivElement>) {
-    if (touchStartX === null) return
-    const endX = event.changedTouches[0]?.clientX
-    if (typeof endX !== 'number') return
-    const deltaX = endX - touchStartX
-    if (deltaX > 50) goNext()
-    if (deltaX < -50) goPrev()
-    setTouchStartX(null)
-  }
+  useEffect(() => {
+    if (!api) return
+    const update = () => {
+      setCount(api.scrollSnapList().length)
+      setCurrent(api.selectedScrollSnap() + 1)
+    }
+    update()
+    api.on('select', update)
+    api.on('reInit', update)
+    return () => {
+      api.off('select', update)
+      api.off('reInit', update)
+    }
+  }, [api])
 
   return (
-    <div className="mx-auto w-full max-w-3xl py-2">
+    <div className="mx-auto w-full max-w-5xl py-2">
       <div className="space-y-6">
         <div className="text-center">
           <h1 className="font-display text-3xl font-semibold text-[#eaf0f7]">Evo što ste predali</h1>
@@ -168,40 +176,45 @@ export default function Results({ consents, userData, score, onRestart }: Props)
           </p>
         </div>
 
-        <div
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          className="rounded-3xl border border-[#1b2a38] bg-[#0b1118]/90 p-6 shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
+        <Carousel
+          setApi={setApi}
+          opts={{ align: 'start', loop: false }}
+          className="relative overflow-hidden rounded-3xl border border-[#1b2a38] bg-[#0b1118]/95 p-6 shadow-[0_30px_80px_rgba(0,0,0,0.5)] sm:p-8"
         >
-          <div className="mb-4 flex items-center justify-between gap-3">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-[#8f9bb0]">
-              {cards[activeCard].title}
-            </h2>
-            <span className="text-xs text-[#708199]">
-              {activeCard + 1} / {cards.length}
-            </span>
+          <div className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-[#14d9b3]/12 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-20 -left-20 h-56 w-56 rounded-full bg-[#1d9eff]/10 blur-3xl" />
+
+          <CarouselContent>
+            {cards.map(card => (
+              <CarouselItem key={card.title}>
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <h2 className="text-base font-semibold uppercase tracking-wide text-[#8f9bb0]">
+                    {card.title}
+                  </h2>
+                  <span className="text-xs text-[#708199]">
+                    {current} / {count || cards.length}
+                  </span>
+                </div>
+                <div className="flex min-h-[360px] items-center justify-center sm:min-h-[410px]">{card.content}</div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+
+          <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-[#1b2937]">
+            <div
+              className="h-full rounded-full bg-[#14d9b3] transition-all duration-300"
+              style={{ width: `${((current || 1) / (count || cards.length)) * 100}%` }}
+            />
           </div>
 
-          <div className="min-h-[180px]">{cards[activeCard].content}</div>
-
-          <div className="mt-6 flex items-center justify-between gap-3">
-            <button
-              onClick={goPrev}
-              disabled={activeCard === 0}
-              className="rounded-lg border border-[#2a3a4e] px-4 py-2 text-xs font-medium text-[#8e9bb1] transition hover:border-[#3d526b] hover:text-[#a7b4c8] disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              ← Prethodno
-            </button>
-            <p className="text-center text-xs text-[#708199]">Povucite udesno za sljedeću karticu</p>
-            <button
-              onClick={goNext}
-              disabled={activeCard === cards.length - 1}
-              className="rounded-lg bg-[#14d9b3] px-4 py-2 text-xs font-semibold text-[#031914] transition hover:bg-[#26e9c3] disabled:cursor-not-allowed disabled:bg-[#355b56] disabled:text-[#9abdb6]"
-            >
-              Sljedeće →
-            </button>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <CarouselPrevious className="w-full sm:w-auto">← Prethodno</CarouselPrevious>
+            <p className="text-center text-sm font-medium text-[#9eb4cf]">
+              <span className="inline-block animate-pulse text-[#14d9b3]">⟶</span> Povuci udesno i otkrij što si još podijelio
+            </p>
+            <CarouselNext className="w-full sm:w-auto">Sljedeće →</CarouselNext>
           </div>
-        </div>
+        </Carousel>
 
         <button
           onClick={onRestart}
