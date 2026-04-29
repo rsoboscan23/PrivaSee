@@ -92,16 +92,6 @@ export default function CookieBanner({ onAccept }: Props) {
     })
   }
 
-  function handleNecessaryOnly() {
-    onAccept({
-      accepted: false,
-      analytics: false,
-      marketing: false,
-      profiling: false,
-      partnerSharing: false,
-    })
-  }
-
   function handleDetailedSave() {
     const consentByType = {
       analytics: detailOptions
