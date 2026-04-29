@@ -17,24 +17,25 @@ type Props = {
 
 const darkPatterns = [
   {
-    name: 'Naranging (Nudging)',
+    name: 'Usmjeravanje (Nudging) ',
     description:
-      '"Prihvati sve" je veći, obojeniji i na istaknutom mjestu. "Samo nužni" je manji, sive boje i vizualno potisnuta opcija.',
+    '"Prihvati i zatvori" je veći, obojeniji i na istaknutom mjestu. "Saznajte više" je manji, sive boje i vizualno potisnuta opcija. Dizajn nije slučajan. Namjerno te guraju prema jednom izboru.'
   },
   {
     name: 'Lažna nužnost',
     description:
-      'Forma tvrdi da su vaši osobni podaci potrebni za "personalizaciju kviza". Kviz ne treba nijedan od tih podataka.',
+    'Forma je tražila tvoje ime, email i grad "za personalizaciju kviza." Kviz ne treba ništa od toga. Tražili su podatke jer mogu — ne jer moraju.'
+
   },
   {
     name: 'Skriveni opseg',
     description:
-      'Niste znali da prihvaćate dijeljenje podataka s 47 reklamnih partnera dok to niste vidjeli ovdje.',
+      'Realno, nisi ni znao/la da prihvaćaš dijeljenje podataka s 1065 reklamnih partnera dok to nisi vidio/la ovdje.'
   },
   {
     name: 'Nema odbijanja',
     description:
-      'Na cookie banneru nije postojala opcija "Odbij sve" — samo prihvaćanje ili skrivena alternativa.',
+    'Nije postojala opcija "Odbij sve." Mogao/la si ili prihvatiti — ili tražiti zakopanu alternativu u postavkama. Odbiti je moguće, samo nije brzo ni intuitivno.'
   },
 ]
 
@@ -72,6 +73,10 @@ export default function Results({ consents, userData, score, onRestart }: Props)
   const [current, setCurrent] = useState(1)
   const [count, setCount] = useState(0)
   const scorePercent = Math.round((score / totalQuestions) * 100)
+  const enabledConsentLabels = consentLabels.filter(({ key }) => consents[key])
+  const disabledConsentLabels = consentLabels.filter(({ key }) => !consents[key])
+  const allOptionalDisabled = disabledConsentLabels.length === consentLabels.length
+  const partiallyDisabled = disabledConsentLabels.length > 0 && !allOptionalDisabled
 
   const cards = [
     {
@@ -97,29 +102,75 @@ export default function Results({ consents, userData, score, onRestart }: Props)
     },
     {
       title: 'Prihvatili ste kolačiće? Evo sve što ste nam dali',
-      content: consents.accepted ? (
-        <div className="mx-auto w-full max-w-3xl"> 
-          <div className="rounded-2xl border border-red-400/50 bg-red-950/20 p-4 sm:p-5"> 
-          <h3 className="mb-4 w-full text-center text-lg font-bold leading-tight text-red-200 sm:mb-5 sm:text-2xl">
-            Što ste sve prihvatili klikom na "Prihvati i zatvori"
+      content: allOptionalDisabled ? (
+        <div className="mx-auto w-full max-w-3xl rounded-2xl border border-emerald-400/45 bg-emerald-950/20 p-4 sm:p-5">
+          <h3 className="mb-3 text-center text-lg font-bold text-emerald-200 sm:text-2xl">
+            Odlično! Isključili ste opcionalne kolačiće.
           </h3>
-          
+          <p className="mb-4 text-center text-sm text-emerald-100 sm:text-base">
+            Uspješno ste ugasili sve kategorije koje nisu nužne za rad stranice.
+          </p>
+          <ul className="mx-auto max-w-2xl list-disc space-y-2 pl-5 text-left marker:text-emerald-300">
+            {disabledConsentLabels.map(({ key, label }) => (
+              <li key={key} className="text-sm font-semibold text-emerald-100 sm:text-base">
+                {label}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 rounded-lg border border-emerald-300/35 bg-emerald-950/35 p-3 text-sm text-emerald-100">
+            Važno: čak i kad isključite sve opcionalne kolačiće, nužni kolačići ostaju aktivni jer su potrebni
+            za osnovno funkcioniranje web stranice (npr. sigurnost, sesija i osnovna navigacija).
+          </p>
+        </div>
+      ) : partiallyDisabled ? (
+        <div className="mx-auto w-full max-w-3xl space-y-3">
+          <div className="rounded-2xl border border-emerald-400/45 bg-emerald-950/20 p-4 sm:p-5">
+            <h3 className="text-center text-base font-bold text-emerald-200 sm:text-xl">
+              Bravo, isključio/la si {disabledConsentLabels.length} dodatnih praćenja koja su ti bila podmetnuta.
+            </h3>
+            <p className="mt-2 text-center text-sm text-emerald-100">
+              Ipak, vrlo vjerojatno se o tebi i dalje prikupljaju podaci kroz preostale uključene kategorije.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-red-400/50 bg-red-950/20 p-4 sm:p-5">
+            <h3 className="mb-4 w-full text-center text-lg font-bold leading-tight text-red-200 sm:mb-5 sm:text-2xl">
+              Što se i dalje prikuplja
+            </h3>
             <div className="rounded-xl p-3">
-              <ul className="list-disc list-inside space-y-2.5 text-center marker:text-red-300">
-                {consentLabels.map(({ key, label, description }) => (
-                  <li key={key} className="text-sm text-red-100 sm:text-base">
-                    <p className="font-semibold">{label}</p>
+              <ul className="mx-auto max-w-2xl list-disc space-y-2.5 pl-5 text-left marker:text-red-300">
+                {enabledConsentLabels.map(({ key, label, description }) => (
+                  <li key={key} className="text-sm leading-6 text-red-100 sm:text-base">
+                    <span className="inline align-middle font-semibold">{label}</span>
                     <p className="mt-1 text-xs text-red-200 sm:text-sm">{description}</p>
                   </li>
                 ))}
               </ul>
             </div>
+            <p className="mt-4 rounded-lg border border-red-300/35 bg-red-950/35 p-3 text-sm text-red-100">
+              Nužni kolačići i dalje ostaju aktivni zbog osnovnog funkcioniranja web stranice.
+            </p>
           </div>
         </div>
       ) : (
-        <p className="mx-auto max-w-3xl text-center text-sm text-[#8f9bb0] sm:text-base">
-          Odabrali ste samo nužne kolačiće. Dobra odluka — ali rijetko tko to odabere.
-        </p>
+        <div className="mx-auto w-full max-w-3xl rounded-2xl border border-red-400/50 bg-red-950/20 p-4 sm:p-5">
+          <h3 className="mb-4 w-full text-center text-lg font-bold leading-tight text-red-200 sm:mb-5 sm:text-2xl">
+            Što ste sve prihvatili klikom na "Prihvati i zatvori"
+          </h3>
+          <div className="rounded-xl p-3">
+            <ul className="mx-auto max-w-2xl list-disc space-y-2.5 pl-5 text-left marker:text-red-300">
+              {enabledConsentLabels.map(({ key, label, description }) => (
+                <li key={key} className="text-sm leading-6 text-red-100 sm:text-base">
+                  <span className="inline align-middle font-semibold">{label}</span>
+                  <p className="mt-1 text-xs text-red-200 sm:text-sm">{description}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <p className="mt-4 rounded-lg border border-red-300/35 bg-red-950/35 p-3 text-sm text-red-100">
+            Nužni kolačići i dalje ostaju aktivni zbog osnovnog funkcioniranja web stranice.
+          </p>
+        </div>
       ),
     },
     {
@@ -151,7 +202,7 @@ export default function Results({ consents, userData, score, onRestart }: Props)
       ),
     },
     {
-      title: 'Dark paterni koje smo koristili',
+      title: 'Trikovi koje smo koristili',
       content: (
         <ul className="mx-auto grid w-full max-w-3xl gap-3 sm:grid-cols-2">
           {darkPatterns.map(pattern => (
@@ -169,7 +220,8 @@ export default function Results({ consents, userData, score, onRestart }: Props)
         <div className="mx-auto max-w-3xl rounded-2xl border border-[#1f6458] bg-[#0a2b27] p-4 text-[#d2fff5] sm:p-6">
           <ul className="space-y-2 text-center text-sm text-[#a7eede] sm:text-base">
             <li>• Uvijek pročitajte što prihvaćate na cookie bannerima</li>
-            <li>• Koristite preglednik s ugrađenom blokadom trackera (Firefox, Brave)</li>
+            <li>• Koristite privatni način pregledavanja kad ne želite ostaviti trag</li>
+            <li>• Provjerite koje ste privole dali i povucite ih ako više ne želite</li>
             <li>• Redovito brišite kolačiće i pregledavajte postavke privatnosti</li>
             <li>• Znate da imate pravo zatražiti brisanje vaših podataka (GDPR čl. 17)</li>
           </ul>

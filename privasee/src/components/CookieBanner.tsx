@@ -140,22 +140,22 @@ export default function CookieBanner({ onAccept }: Props) {
 
               <p className="text-xs leading-5 text-[#95a1b4] sm:text-base sm:leading-6">
                 Više o našim Pravilima privatnosti te pravilima o korištenju kolačića možete pročitati{' '}
-                <button className="text-[#14d9b3] underline decoration-[#14d9b3]/70 underline-offset-4 hover:text-[#6cf2d8]">
+                <button className="text-[#95a1b4] underline decoration-[#95a1b4]/70 underline-offset-4 hover:text-[#b3bccb]">
                   ovdje
                 </button>
               </p>
 
               <p className="mt-3 text-xs leading-5 text-[#95a1b4] sm:mt-4 sm:text-base sm:leading-6">
                 Uz Vaš pristanak, mi i naši partneri koristimo{' '}
-                <button className="text-[#14d9b3] underline decoration-[#14d9b3]/70 underline-offset-4 hover:text-[#6cf2d8]">
+                <button className="text-[#95a1b4] underline decoration-[#95a1b4]/70 underline-offset-4 hover:text-[#b3bccb]">
                   kolačiće
                 </button>{' '}
                 i slične tehnologije za pohranu, pristup i obradu osobnih podataka kao što su Vaša posjeta ovoj web stranici, IP adrese i identifikatori kolačića. Neki partneri mogu se oslanjati na legitimni poslovni interes. Svoj pristanak možete povući u bilo kojem trenutku klikom na{' '}
-                <button className="text-[#14d9b3] underline decoration-[#14d9b3]/70 underline-offset-4 hover:text-[#6cf2d8]">
+                <button className="text-[#95a1b4] underline decoration-[#95a1b4]/70 underline-offset-4 hover:text-[#b3bccb]">
                   "Saznajte više"
                 </button>{' '}
                 ili u našim{' '}
-                <button className="text-[#14d9b3] underline decoration-[#14d9b3]/70 underline-offset-4 hover:text-[#6cf2d8]">
+                <button className="text-[#95a1b4] underline decoration-[#95a1b4]/70 underline-offset-4 hover:text-[#b3bccb]">
                   Pravilima o privatnosti
                 </button>
                 .
@@ -168,8 +168,8 @@ export default function CookieBanner({ onAccept }: Props) {
                 Personalizirano oglašavanje i sadržaj, mjerenje oglašavanja i sadržaja, uvid u publiku i razvoj usluga, Pohrana i/ili pristup podacima na uređaju, Precizni geolokacijski podaci i identifikacija putem skeniranja uređaja
               </p>
 
-              <p className="mt-4 text-center text-xs text-[#14d9b3] sm:mt-5 sm:text-base">
-                <button className="underline decoration-[#14d9b3]/70 underline-offset-4 hover:text-[#6cf2d8]">
+              <p className="mt-4 text-center text-xs text-[#95a1b4] sm:mt-5 sm:text-base">
+                <button className="underline decoration-[#95a1b4]/70 underline-offset-4 hover:text-[#b3bccb]">
                   Pogledajte listu naših 1065 partnera.
                 </button>
               </p>
@@ -219,7 +219,7 @@ export default function CookieBanner({ onAccept }: Props) {
                       onClick={() => handleToggleConsent(option.key)}
                       className={`w-full rounded-md px-3 py-1.5 text-xs font-semibold transition sm:w-auto sm:min-w-[88px] ${
                         detailedConsents[option.key]
-                          ? 'bg-[#14d9b3] text-[#031914] hover:bg-[#26e9c3]'
+                          ? 'bg-[#2a3a4e] text-[#eaf0f7] hover:bg-[#3d526b]'
                           : 'border border-[#2a3a4e] text-[#8e9bb1] hover:border-[#3d526b] hover:text-[#a7b4c8]'
                       }`}
                     >
@@ -232,7 +232,7 @@ export default function CookieBanner({ onAccept }: Props) {
               <div className="mt-4 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:justify-end">
                 <button
                   onClick={handleDetailedSave}
-                  className="w-full rounded-xl bg-[#14d9b3] px-7 py-3.5 text-sm font-semibold text-[#031914] transition hover:bg-[#26e9c3] sm:w-auto sm:min-w-[180px]"
+                  className='className="w-full rounded-xl bg-[#14d9b3] px-6 py-3 text-xs font-semibold text-[#031914] transition hover:bg-[#26e9c3] sm:w-auto sm:min-w-[240px] sm:px-7 sm:py-3.5 sm:text-sm"' 
                 >
                   Spremi i zatvori
                 </button>

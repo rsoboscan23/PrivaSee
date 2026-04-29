@@ -152,10 +152,6 @@ export default function PersonalDataForm({ onSubmit }: Props) {
           </form>
         </div>
 
-      <p className="mt-4 text-center text-xs text-[#6f7b8f]">
-          Vaši podaci koriste se isključivo za personalizaciju kviza i neće biti
-          dijeljeni s trećim stranama.*
-        </p>
     </div>
   )
 }
