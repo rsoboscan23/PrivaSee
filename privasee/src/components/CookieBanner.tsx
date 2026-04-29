@@ -79,8 +79,27 @@ const defaultDetailedConsents = Object.fromEntries(detailOptions.map((option) =>
 >
 
 export default function CookieBanner({ onAccept }: Props) {
-  const [view, setView] = useState<'summary' | 'details'>('summary')
+  const [view, setView] = useState<'summary' | 'details' | 'partners'>('summary')
   const [detailedConsents, setDetailedConsents] = useState(defaultDetailedConsents)
+
+  const partners = [
+    'AdPulse Media Group',
+    'BlueRiver Analytics',
+    'Nimbus Audience Labs',
+    'PixelCraft Ad Network',
+    'OrbitReach Technologies',
+    'DataTrail Insights',
+    'NorthBridge Commerce Ads',
+    'SignalForge Attribution',
+    'BrightBid Exchange',
+    'Atlas Personalization Studio',
+    'VectorView Measurement',
+    'EchoPoint Marketing Cloud',
+    'PrismPath Audience Network',
+    'ClickHarbor Retargeting',
+    'FusionMetric Intelligence',
+    'LumenTrack Solutions',
+  ]
 
   function handleAcceptAll() {
     onAccept({
@@ -169,7 +188,10 @@ export default function CookieBanner({ onAccept }: Props) {
               </p>
 
               <p className="mt-4 text-center text-xs text-[#95a1b4] sm:mt-5 sm:text-base">
-                <button className="underline decoration-[#95a1b4]/70 underline-offset-4 hover:text-[#b3bccb]">
+                <button
+                  onClick={() => setView('partners')}
+                  className="underline decoration-[#95a1b4]/70 underline-offset-4 hover:text-[#b3bccb]"
+                >
                   Pogledajte listu naših 1065 partnera.
                 </button>
               </p>
@@ -189,7 +211,7 @@ export default function CookieBanner({ onAccept }: Props) {
                 </button>
               </div>
             </>
-          ) : (
+          ) : view === 'details' ? (
             <>
               <div className="mb-4 flex items-start justify-between gap-3 sm:mb-5 sm:gap-4">
                 <div>
@@ -232,9 +254,51 @@ export default function CookieBanner({ onAccept }: Props) {
               <div className="mt-4 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:justify-end">
                 <button
                   onClick={handleDetailedSave}
-                  className='className="w-full rounded-xl bg-[#14d9b3] px-6 py-3 text-xs font-semibold text-[#031914] transition hover:bg-[#26e9c3] sm:w-auto sm:min-w-[240px] sm:px-7 sm:py-3.5 sm:text-sm"' 
+                  className="w-full rounded-xl bg-[#14d9b3] px-6 py-3 text-xs font-semibold text-[#031914] transition hover:bg-[#26e9c3] sm:w-auto sm:min-w-[240px] sm:px-7 sm:py-3.5 sm:text-sm"
                 >
                   Spremi i zatvori
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="mb-4 flex items-start justify-between gap-3 sm:mb-5 sm:gap-4">
+                <div>
+                  <h2 className="font-display text-lg font-semibold text-[#eaf0f7] sm:text-2xl">
+                    Lista partnera
+                  </h2>
+                  <p className="mt-2 text-xs leading-5 text-[#95a1b4] sm:text-sm sm:leading-6">
+                    Ovo je primjer partnera koji mogu zaprimati podatke za oglašavanje, mjerenje i
+                    personalizaciju sadržaja.
+                  </p>
+                </div>
+                <button
+                  onClick={() => setView('summary')}
+                  className="rounded-md border border-[#2a3a4e] px-2 py-1 text-xs text-[#8e9bb1] hover:border-[#3d526b] hover:text-[#a7b4c8]"
+                >
+                  Natrag
+                </button>
+              </div>
+
+              <div className="max-h-[45dvh] overflow-y-auto rounded-xl border border-[#1b2935] bg-[#0f1822] p-3 sm:max-h-[50dvh] sm:p-4">
+                <ul className="space-y-2">
+                  {partners.map((partner) => (
+                    <li
+                      key={partner}
+                      className="rounded-lg border border-[#1f3042] bg-[#0b1118] px-3 py-2 text-xs text-[#dfe7f2] sm:text-sm"
+                    >
+                      {partner}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-4 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:justify-end">
+                <button
+                  onClick={handleAcceptAll}
+                  className="w-full rounded-xl bg-[#14d9b3] px-6 py-3 text-xs font-semibold text-[#031914] transition hover:bg-[#26e9c3] sm:w-auto sm:min-w-[240px] sm:px-7 sm:py-3.5 sm:text-sm"
+                >
+                  Prihvati i zatvori
                 </button>
               </div>
             </>
