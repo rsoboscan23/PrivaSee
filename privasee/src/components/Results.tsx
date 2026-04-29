@@ -42,7 +42,7 @@ const consentLabels: { key: keyof CookieConsents; label: string }[] = [
   { key: 'analytics', label: 'Analitički kolačići' },
   { key: 'marketing', label: 'Marketinški kolačići' },
   { key: 'profiling', label: 'Kolačići za profiliranje' },
-  { key: 'partnerSharing', label: 'Dijeljenje s 47 reklamnih partnera' },
+  { key: 'partnerSharing', label: 'Dijeljenje s 1065 partnera' },
 ]
 
 const totalQuestions = questions.length
@@ -76,20 +76,24 @@ export default function Results({ consents, userData, score, onRestart }: Props)
       ),
     },
     {
-      title: 'Što ste prihvatili klikom na cookie banner',
+      title: 'Prihvatili ste kolačiće? Evo sve što ste nam dali',
       content: consents.accepted ? (
-        <div className="mx-auto max-w-3xl rounded-2xl border border-red-400/50 bg-red-950/20 p-4 sm:p-5">
-          <p className="mb-4 text-center text-sm font-semibold text-red-200 sm:text-base">
-            Omogućili ste praćenje i dijeljenje podataka.
-          </p>
-          <ul className="space-y-3">
-          {consentLabels.map(({ key, label }) => (
-            <li key={key} className="flex items-center justify-center gap-2 text-center text-sm text-red-100 sm:text-base">
-              <span className="text-red-300">✓</span>
-              {label}
-            </li>
-          ))}
-          </ul>
+        <div className="mx-auto w-full max-w-3xl"> 
+          <div className="rounded-2xl border border-red-400/50 bg-red-950/20 p-4 sm:p-5"> 
+          <h3 className="mb-4 w-full text-center text-lg font-bold leading-tight text-[#eaf0f7] sm:mb-5 sm:text-2xl, text-red-200">
+            Što ste sve prihvatili klikom na "Prihvati i zatvori"
+          </h3>
+          
+            <div className="rounded-xl p-3">
+              <ul className="list-disc list-inside space-y-2.5 text-center marker:text-red-300">
+                {consentLabels.map(({ key, label }) => (
+                  <li key={key} className="text-sm font-semibold text-red-100 sm:text-base">
+                    {label}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       ) : (
         <p className="mx-auto max-w-3xl text-center text-sm text-[#8f9bb0] sm:text-base">
@@ -102,7 +106,7 @@ export default function Results({ consents, userData, score, onRestart }: Props)
       content: (
         <div className="mx-auto max-w-3xl rounded-2xl border border-red-400/50 bg-red-950/20 p-4 sm:p-5">
           <p className="mb-4 text-center text-sm font-semibold text-red-200 sm:text-base">
-            Podijelili ste osobne podatke koji se mogu povezati s vašim identitetom.
+            Podijelili ste osobne podatke koji mogu izravno otkriti vaš identitet.
           </p>
           <ul className="space-y-3">
             {[
@@ -119,8 +123,8 @@ export default function Results({ consents, userData, score, onRestart }: Props)
             ))}
           </ul>
           <p className="mt-4 text-center text-xs text-red-200 sm:text-sm">
-            Na pravoj web stranici, ovi podaci mogu biti prodani trećim stranama, korišteni za ciljano
-            oglašavanje ili pohranjeni godinama.
+            Na stvarnim web stranicama ovakvi se podaci mogu dijeliti s trećim stranama, koristiti za
+            ciljano oglašavanje i čuvati znatno dulje nego što očekujete.
           </p>
         </div>
       ),
@@ -170,13 +174,7 @@ export default function Results({ consents, userData, score, onRestart }: Props)
 
   return (
     <div className="mx-auto w-full max-w-4xl py-2">
-      <div className="space-y-6">
-        <div className="text-center">
-          <h1 className="font-display text-3xl font-semibold text-[#eaf0f7]">Evo što ste predali</h1>
-          <p className="mt-2 text-sm text-[#8f9bb0]">
-            Ovo je sve što je tipična web stranica prikupila u zadnjih nekoliko minuta.
-          </p>
-        </div>
+      <div className="space-y-6"> 
 
         <Carousel
           setApi={setApi}
