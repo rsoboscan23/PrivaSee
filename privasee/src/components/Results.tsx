@@ -270,7 +270,9 @@ export default function Results({ consents, userData, score, onRestart }: Props)
                     </span>
                   </div>
                   <div className="flex min-h-[180px] flex-1 items-center justify-center p-3 sm:min-h-[300px] sm:p-4">
-                    {card.content}
+                    <div className="max-h-[52dvh] w-full overflow-y-auto pr-1 sm:max-h-none sm:overflow-visible sm:pr-0">
+                      {card.content}
+                    </div>
                   </div>
                 </div>
               </CarouselItem>
