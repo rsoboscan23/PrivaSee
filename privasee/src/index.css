@@ -1,5 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap');
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'Geist';
+  src: url('../node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('../node_modules/geist/dist/fonts/geist-sans/Geist-Italic[wght].woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
 
 :root {
   --bg: #05080b;
@@ -16,7 +31,7 @@ body {
   min-height: 100vh;
   background: radial-gradient(1200px 600px at 110% 10%, #0d1f2d 0%, var(--bg) 50%), var(--bg);
   color: var(--text);
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Geist', sans-serif;
 }
 
 #root {
@@ -24,7 +39,7 @@ body {
 }
 
 .font-display {
-  font-family: 'Sora', sans-serif;
+  font-family: 'Geist', sans-serif;
 }
 
 .grid-noise {
