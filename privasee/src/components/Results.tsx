@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { CookieConsents, UserData } from '../types'
+import { questions } from '../data/quiz'
 import {
   Carousel,
   CarouselContent,
@@ -46,7 +47,7 @@ const consentLabels: { key: keyof CookieConsents; label: string }[] = [
   { key: 'partnerSharing', label: 'Dijeljenje s 47 reklamnih partnera' },
 ]
 
-const totalQuestions = 5
+const totalQuestions = questions.length
 
 export default function Results({ consents, userData, score, onRestart }: Props) {
   const [api, setApi] = useState<CarouselApi>()

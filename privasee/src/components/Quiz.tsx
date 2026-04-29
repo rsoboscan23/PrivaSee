@@ -93,14 +93,23 @@ export default function Quiz({ onComplete }: Props) {
           </div>
 
           {answered && (
-            <div className={`mt-4 rounded-lg p-3 text-sm ${
+            <div className={`mt-4 rounded-xl p-4 text-sm ${
               selectedOption === question.correctIndex
                 ? 'border border-[#1e6357] bg-[#0a2b27] text-[#cffff3]'
-                : 'border border-red-400/60 bg-red-950/40 text-red-200'
+                : 'border border-red-400/70 bg-red-950/45 text-red-100 shadow-[0_0_0_1px_rgba(248,113,113,0.22)]'
             }`}>
               {selectedOption === question.correctIndex
                 ? '✓ Točno!'
-                : `✗ Netočno. Točan odgovor: ${question.options[question.correctIndex]}`}
+                : (
+                  <div className="space-y-2"> 
+                    <p className="rounded-lg text-red-100">
+                      <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-red-300">
+                        Zašto je odgovor netočan
+                      </span>
+                      {question.incorrectExplanation}
+                    </p>
+                  </div>
+                )}
             </div>
           )}
 
