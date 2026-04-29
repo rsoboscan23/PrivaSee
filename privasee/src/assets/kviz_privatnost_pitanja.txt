@@ -89,7 +89,7 @@ KVIZ: PRIVATNOST I ZAŠTITA OSOBNIH PODATAKA
 
    a) Škola ima pravo znati tko dolazi, to je u redu
    b) Da, ukoliko roditelji potpišu suglasnost
-   c) Ne bez iznimno jakog opravdanja  ✓ TOČNO
+   c) Ne, bez iznimno jakog opravdanja  ✓ TOČNO
    d) Ako se podaci brišu svaki dan, onda je valjan zahtjev
 
    Zašto su ostali odgovori netočni:

@@ -127,8 +127,8 @@ export default function CookieBanner({ onAccept }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 z-40 overflow-y-auto bg-transparent p-2 sm:flex sm:items-center sm:justify-center sm:p-6">
-      <div className="my-1 w-full max-w-3xl rounded-2xl border border-[#1e3041] bg-[#0b1118]/98 p-3 text-[#eaf0f7] shadow-[0_40px_100px_rgba(0,0,0,0.55)] sm:my-8 sm:p-8">
+    <div className="fixed inset-0 z-40 flex min-h-dvh items-center justify-center overflow-y-auto bg-transparent p-3 sm:p-6">
+      <div className="w-full max-w-3xl rounded-2xl border border-[#1e3041] bg-[#0b1118]/98 p-3 text-[#eaf0f7] shadow-[0_40px_100px_rgba(0,0,0,0.55)] sm:p-8">
         <div>
           {view === 'summary' ? (
             <>

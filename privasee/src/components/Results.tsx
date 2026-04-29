@@ -38,11 +38,31 @@ const darkPatterns = [
   },
 ]
 
-const consentLabels: { key: keyof CookieConsents; label: string }[] = [
-  { key: 'analytics', label: 'Analitički kolačići' },
-  { key: 'marketing', label: 'Marketinški kolačići' },
-  { key: 'profiling', label: 'Kolačići za profiliranje' },
-  { key: 'partnerSharing', label: 'Dijeljenje s 1065 partnera' },
+const consentLabels: { key: keyof CookieConsents; label: string; description: string }[] = [
+  {
+    key: 'analytics',
+    label: 'Analitički kolačići',
+    description:
+      'Prate sve što radiš na stranici: što klikćeš, koliko dugo gledaš, gdje se zaustaviš. Tvoje ponašanje postaje podatkovna točka.',
+  },
+  {
+    key: 'marketing',
+    label: 'Marketinški kolačići',
+    description:
+      'Prate te po internetu. Ona tenisica koju si gledao/la na jednoj stranici? Pratit će te danima svuda.',
+  },
+  {
+    key: 'profiling',
+    label: 'Kolačići za profiliranje',
+    description:
+      'Od svih tih podataka grade digitalni portret tebe: tvoje navike, interesi, vjerojatni prihodi, raspoloženje. Nisi korisnik — ti si proizvod.',
+  },
+  {
+    key: 'partnerSharing',
+    label: 'Dijeljenje s 1065 partnera',
+    description:
+      'Tvoj profil nije ostao na toj jednoj stranici. Upravo je poslan na više od tisuću tvrtki koje nikad nisi čuo/la, a koje sada znaju tko si.',
+  },
 ]
 
 const totalQuestions = questions.length
@@ -80,15 +100,16 @@ export default function Results({ consents, userData, score, onRestart }: Props)
       content: consents.accepted ? (
         <div className="mx-auto w-full max-w-3xl"> 
           <div className="rounded-2xl border border-red-400/50 bg-red-950/20 p-4 sm:p-5"> 
-          <h3 className="mb-4 w-full text-center text-lg font-bold leading-tight text-[#eaf0f7] sm:mb-5 sm:text-2xl, text-red-200">
+          <h3 className="mb-4 w-full text-center text-lg font-bold leading-tight text-red-200 sm:mb-5 sm:text-2xl">
             Što ste sve prihvatili klikom na "Prihvati i zatvori"
           </h3>
           
             <div className="rounded-xl p-3">
               <ul className="list-disc list-inside space-y-2.5 text-center marker:text-red-300">
-                {consentLabels.map(({ key, label }) => (
-                  <li key={key} className="text-sm font-semibold text-red-100 sm:text-base">
-                    {label}
+                {consentLabels.map(({ key, label, description }) => (
+                  <li key={key} className="text-sm text-red-100 sm:text-base">
+                    <p className="font-semibold">{label}</p>
+                    <p className="mt-1 text-xs text-red-200 sm:text-sm">{description}</p>
                   </li>
                 ))}
               </ul>

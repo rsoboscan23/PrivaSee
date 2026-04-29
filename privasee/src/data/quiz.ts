@@ -72,7 +72,7 @@ export const questions: QuizQuestion[] = [
     options: [
       'Škola ima pravo znati tko dolazi, to je u redu',
       'Da, ukoliko roditelji potpišu suglasnost',
-      'Ne bez iznimno jakog opravdanja',
+      'Ne, bez iznimno jakog opravdanja',
       'Ako se podaci brišu svaki dan, onda je valjan zahtjev',
     ],
     correctIndex: 2,

@@ -1,9 +1,15 @@
 import { useState } from 'react'
 import type { UserData } from '../types'
-
-
-
-
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSet,
+} from './ui/field'
+import { Input } from './ui/input'
 type Props = {
   onSubmit: (data: UserData) => void
 }
@@ -59,49 +65,83 @@ export default function PersonalDataForm({ onSubmit }: Props) {
         </div>
 
       <div className="rounded-3xl border border-[#1b2a38] bg-[#0b1118]/90 p-8 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur">
-          <form onSubmit={handleSubmit} noValidate className="space-y-5">
-            <Field
-              label="Ime i prezime *"
-              name="name"
-              type="text"
-              placeholder="npr. Ana Horvat"
-              value={form.name}
-              error={errors.name}
-              onChange={handleChange}
-            />
-            <Field
-              label="Email adresa *"
-              name="email"
-              type="email"
-              placeholder="npr. ana@email.com"
-              value={form.email}
-              error={errors.email}
-              onChange={handleChange}
-            />
-            <Field
-              label="Datum rođenja *"
-              name="birthDate"
-              type="date"
-              value={form.birthDate}
-              error={errors.birthDate}
-              onChange={handleChange}
-            />
-            <Field
-              label="Grad"
-              name="city"
-              type="text"
-              placeholder="npr. Zagreb"
-              value={form.city}
-              onChange={handleChange}
-            />
-            <Field
-              label="Zanimanje"
-              name="occupation"
-              type="text"
-              placeholder="npr. Studentica"
-              value={form.occupation}
-              onChange={handleChange}
-            />
+          <form onSubmit={handleSubmit} noValidate>
+            <FieldSet>
+              <FieldLegend>Osnovni podaci</FieldLegend>
+              <FieldDescription className="text-sm leading-6 text-[#8f9bb0]">
+                Ova polja služe za personalizaciju pitanja i prikaz rezultata.
+              </FieldDescription>
+
+              <FieldGroup className="mt-5">
+                <Field data-invalid={!!errors.name}>
+                  <FieldLabel htmlFor="name">Ime i prezime *</FieldLabel>
+                  <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="npr. Ana Horvat"
+                    value={form.name}
+                    onChange={handleChange}
+                    aria-invalid={!!errors.name}
+                    className={errors.name ? 'border-red-400/80 bg-red-950/20' : ''}
+                  />
+                  {errors.name && <FieldError>{errors.name}</FieldError>}
+                </Field>
+
+                <Field data-invalid={!!errors.email}>
+                  <FieldLabel htmlFor="email">Email adresa *</FieldLabel>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="npr. ana@email.com"
+                    value={form.email}
+                    onChange={handleChange}
+                    aria-invalid={!!errors.email}
+                    className={errors.email ? 'border-red-400/80 bg-red-950/20' : ''}
+                  />
+                  {errors.email && <FieldError>{errors.email}</FieldError>}
+                </Field>
+
+                <Field data-invalid={!!errors.birthDate}>
+                  <FieldLabel htmlFor="birthDate">Datum rođenja *</FieldLabel>
+                  <Input
+                    id="birthDate"
+                    name="birthDate"
+                    type="date"
+                    value={form.birthDate}
+                    onChange={handleChange}
+                    aria-invalid={!!errors.birthDate}
+                    className={errors.birthDate ? 'border-red-400/80 bg-red-950/20' : ''}
+                  />
+                  {errors.birthDate && <FieldError>{errors.birthDate}</FieldError>}
+                </Field>
+
+                <Field>
+                  <FieldLabel htmlFor="city">Grad</FieldLabel>
+                  <Input
+                    id="city"
+                    name="city"
+                    type="text"
+                    placeholder="npr. Zagreb"
+                    value={form.city}
+                    onChange={handleChange}
+                  />
+                </Field>
+
+                <Field>
+                  <FieldLabel htmlFor="occupation">Zanimanje</FieldLabel>
+                  <Input
+                    id="occupation"
+                    name="occupation"
+                    type="text"
+                    placeholder="npr. Studentica"
+                    value={form.occupation}
+                    onChange={handleChange}
+                  />
+                </Field>
+              </FieldGroup>
+            </FieldSet>
 
             <button
               type="submit"
@@ -116,38 +156,6 @@ export default function PersonalDataForm({ onSubmit }: Props) {
           Vaši podaci koriste se isključivo za personalizaciju kviza i neće biti
           dijeljeni s trećim stranama.*
         </p>
-    </div>
-  )
-}
-
-type FieldProps = {
-  label: string
-  name: string
-  type: string
-  placeholder?: string
-  value: string
-  error?: string
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-}
-
-function Field({ label, name, type, placeholder, value, error, onChange }: FieldProps) {
-  return (
-    <div>
-      <label htmlFor={name} className="mb-1.5 block text-sm font-medium text-[#b5c0d1]">
-        {label}
-      </label>
-      <input
-        id={name}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        className={`w-full rounded-xl border px-4 py-2.5 text-sm text-[#eaf0f7] placeholder:text-[#607089] focus:outline-none focus:ring-2 focus:ring-[#14d9b3]/60 ${
-          error ? 'border-red-400/80 bg-red-950/20' : 'border-[#2a3a4e] bg-[#0f1822]'
-        }`}
-      />
-      {error && <p className="mt-1 text-xs text-red-300">{error}</p>}
     </div>
   )
 }
