@@ -137,8 +137,8 @@ export default function CookieBanner({ onAccept }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 z-40 flex items-center justify-center bg-transparent p-4 sm:p-6">
-      <div className="w-full max-w-3xl rounded-2xl border border-[#1e3041] bg-[#0b1118]/98 p-6 text-[#eaf0f7] shadow-[0_40px_100px_rgba(0,0,0,0.55)] sm:p-8">
+    <div className="fixed inset-0 z-40 overflow-y-auto bg-transparent p-3 sm:flex sm:items-center sm:justify-center sm:p-6">
+      <div className="my-2 w-full max-w-3xl rounded-2xl border border-[#1e3041] bg-[#0b1118]/98 p-4 text-[#eaf0f7] shadow-[0_40px_100px_rgba(0,0,0,0.55)] sm:my-8 sm:p-8">
         <div>
           {view === 'summary' ? (
             <>
@@ -201,13 +201,12 @@ export default function CookieBanner({ onAccept }: Props) {
             </>
           ) : (
             <>
-              <div className="mb-5 flex items-start justify-between gap-4">
+              <div className="mb-4 flex items-start justify-between gap-3 sm:mb-5 sm:gap-4">
                 <div>
-                  <h2 className="font-display text-xl font-semibold text-[#eaf0f7] sm:text-2xl">
+                  <h2 className="font-display text-lg font-semibold text-[#eaf0f7] sm:text-2xl">
                     Upravljanje privolama
                   </h2>
-                  <br />
-                  <p className="mt-1 text-sm text-[#95a1b4]">
+                  <p className="mt-2 text-xs leading-5 text-[#95a1b4] sm:text-sm sm:leading-6">
                     Mi i naši partneri koristimo kolačiće, pristupamo općim i neosjetljivim podacima s vašeg uređaja te ih upotrebljavamo kako bismo poboljšali naše proizvode i prilagodili oglase i druge sadržaje na ovoj web stranici. Možete prihvatiti sve ili dio tih postupaka. Kako biste saznali više o kolačićima, partnerima i načinu na koji upotrebljavamo vaše podatke te pregledali svoje mogućnosti ili ove postupke za svakog partnera, posjetite našu stranicu 
                   </p>
                 </div>
@@ -219,16 +218,16 @@ export default function CookieBanner({ onAccept }: Props) {
                 </button>
               </div>
 
-              <div className="space-y-2 rounded-xl border border-[#1b2935] bg-[#0f1822] p-4">
+              <div className="max-h-[42dvh] space-y-2 overflow-y-auto rounded-xl border border-[#1b2935] bg-[#0f1822] p-3 pr-2 sm:max-h-[48dvh] sm:p-4 sm:pr-3">
                 {detailOptions.map((option) => (
                   <div
                     key={option.key}
-                    className="flex items-center justify-between gap-3 rounded-lg border border-[#1f3042] bg-[#0b1118] px-3 py-2"
+                    className="flex flex-col items-start gap-2 rounded-lg border border-[#1f3042] bg-[#0b1118] px-3 py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
                   >
-                    <p className="text-sm text-[#dfe7f2]">{option.label}</p>
+                    <p className="text-xs leading-5 text-[#dfe7f2] sm:text-sm sm:leading-6">{option.label}</p>
                     <button
                       onClick={() => handleToggleConsent(option.key)}
-                      className={`min-w-[78px] rounded-md px-3 py-1 text-xs font-semibold transition ${
+                      className={`w-full rounded-md px-3 py-1.5 text-xs font-semibold transition sm:w-auto sm:min-w-[88px] ${
                         detailedConsents[option.key]
                           ? 'bg-[#14d9b3] text-[#031914] hover:bg-[#26e9c3]'
                           : 'border border-[#2a3a4e] text-[#8e9bb1] hover:border-[#3d526b] hover:text-[#a7b4c8]'
@@ -240,7 +239,7 @@ export default function CookieBanner({ onAccept }: Props) {
                 ))}
               </div>
 
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">
+              <div className="mt-4 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:justify-end">
                 <button
                   onClick={handleNecessaryOnly}
                   className="w-full rounded-xl border border-[#2a3a4e] px-6 py-3.5 text-sm font-semibold text-[#8e9bb1] transition hover:border-[#3d526b] hover:text-[#a7b4c8] sm:w-auto sm:min-w-[180px]"
